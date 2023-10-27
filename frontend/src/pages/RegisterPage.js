@@ -3,6 +3,7 @@ import classes from './RegisterPage.module.css'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
 import AuthContext from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const RegisterPage = () => {
     const { registerUser, error } = useContext(AuthContext)
@@ -87,6 +88,7 @@ const RegisterPage = () => {
                     onChange={handleInputChange}
                 />
                 <Button type='submit' areInputsFilled={areInputsFilled}>Submit</Button>
+                <p className={classes['form-account']}>If you already have account.<Link to='/login'> Click here.</Link></p>
                 {error && <p className={classes['register-error']}>{error.email}</p>}
                 {error && <p className={classes['register-error']}>{error.password}</p>}
             </form>
