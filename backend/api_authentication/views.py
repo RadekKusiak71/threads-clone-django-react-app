@@ -3,11 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import viewsets
 from rest_framework import status
-from .serializers import TokenObtainPairSerializer, RegisterSerializer
+from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
+
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = TokenObtainPairSerializer
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class RegisterViewSet(viewsets.ViewSet):
