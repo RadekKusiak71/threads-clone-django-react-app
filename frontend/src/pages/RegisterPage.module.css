@@ -20,3 +20,14 @@
 .register-error{
     color: #ffffff;
 }
+a{
+    text-decoration: none;
+    color: rgba(167, 167, 167, 0.907);
+    transition: 0.3s ease-in-out;
+}
+a:hover{
+    color: #ffffff;
+}
+.form-account{
+    color: #ffffff;
+}
