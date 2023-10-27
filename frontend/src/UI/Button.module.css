@@ -1,0 +1,16 @@
+.button {
+    all: unset;
+    background-color: #b2b2b2;
+    color: #414141;
+    width: 400px;
+    height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.button-active {
+    color: #101010;
+    background-color: #ffffff;
+}
