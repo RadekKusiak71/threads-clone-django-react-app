@@ -1,4 +1,4 @@
-import React, { Children, createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom'
 
@@ -24,11 +24,11 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
-                let data = await response.json();
                 navigate('/login');
             } else {
                 let errorData = await response.json();
                 setError(errorData);
+                console.log(response)
             }
         } catch (err) {
             console.log(err);
@@ -45,9 +45,9 @@ export const AuthProvider = ({ children }) => {
             })
             let data = await response.json()
             if (response.ok) {
-                setAuthTokens({ refresh: data.refresh, access: data.access });
+                setAuthTokens(data)
                 setUser(jwtDecode(data.access));
-                localStorage.setItem('authTokens', JSON.stringify({ ...authTokens, access: data.access }));
+                localStorage.setItem('authTokens', JSON.stringify(data))
                 navigate('/')
             } else {
                 setError(data)
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ 'reftesh': authTokens.refresh })
+                body: JSON.stringify({ 'refresh': authTokens.refresh })
             })
             let data = await response.json();
 
@@ -90,13 +90,13 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const refresher = 1000 * 60 * 14
-        let timeout = setTimeout(() => {
+        let interval = setInterval(() => {
             if (authTokens) {
                 updateToken()
             }
         }, refresher)
 
-        return () => clearTimeout(timeout)
+        return () => clearInterval(interval)
     }, [authTokens])
 
     let authData = {

@@ -1,9 +1,14 @@
-import React, { useContext } from 'react'
-import AuthContext from '../context/AuthContext'
+import React from 'react'
+import Card from '../UI/Card'
+import PostForm from '../components/PostForm'
+
+
 const HomePage = () => {
-    const { user } = useContext(AuthContext)
+
     return (
-        <div>HomePage</div>
+        <Card>
+            <PostForm />
+        </Card>
     )
 }
 
