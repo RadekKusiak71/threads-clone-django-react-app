@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User
+from api.models import Thread
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -10,7 +11,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
+        thread = Thread.objects.get(user=user)
         token['username'] = user.username
+        token['thread_id'] = thread.id
 
         return token
 
@@ -44,6 +47,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
         )
+        Thread.objects.create(user=user)
 
         user.set_password(validated_data['password'])
         user.save()
