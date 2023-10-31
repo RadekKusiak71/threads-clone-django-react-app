@@ -30,6 +30,7 @@ input[type="file"] {
     padding: 10px;
     color: #414141;
     background-color: #1e1e1e;
+    border: 3px dotted #414141;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -39,8 +40,9 @@ input[type="file"] {
     margin: auto;
 }
 .post-file-upload:hover{
-    background-color: #414141;
-    color: #1e1e1e;
+    background-color: #1e1e1e;
+    color: #414141;
+    border: 0px
 }
 .post-form-button{
     all: unset;
@@ -56,4 +58,14 @@ input[type="file"] {
 }
 .post-form-button:hover{
     background-color: #414141;
+}
+.file{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.post-file-cancel{
+    all: unset;
+    width: fit-content;
+    color: red;
 }
