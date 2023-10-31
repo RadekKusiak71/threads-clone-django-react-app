@@ -52,7 +52,7 @@
     word-break: break-all;
 }
 
-.post-description>p:first-child {
+.post-description>a {
     display: flex;
     justify-content: space-around;
     align-items: center;

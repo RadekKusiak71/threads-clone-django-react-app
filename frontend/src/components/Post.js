@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import classes from './Post.module.css'
 import heart from '../assets/icons/heart.svg';
 import heartRed from '../assets/icons/heart_red.png';
 import chat from '../assets/icons/chat.svg'
 import AuthContext from '../context/AuthContext';
 import PostContext from '../context/PostContext';
+import { Link } from 'react-router-dom';
 
 function timeAgo(postDate) {
     const postDateTime = new Date(postDate).getTime();
@@ -36,7 +37,7 @@ function timeAgo(postDate) {
 
 const Post = (props) => {
     const { user } = useContext(AuthContext);
-    const { likePost, unlikePost } = useContext(PostContext);
+    const { likePost, unlikePost, fetchPosts } = useContext(PostContext);
 
     const checkLike = () => {
         if (props.likesArray.includes(user.user_id)) {
@@ -51,22 +52,31 @@ const Post = (props) => {
         if (isLiked) {
             setIsLiked(false);
             unlikePost(postID);
+            if (props.threads) {
+                props.threadsPosts(user.username.substring(1,))
+            } else {
+                fetchPosts()
+            }
         } else {
             setIsLiked(true);
             likePost(postID);
+            if (props.threads) {
+                props.threadsPosts(user.username.substring(1,))
+            } else {
+                fetchPosts()
+            }
         }
     };
-
     return (
         <>
             <div className={classes['post-container']}>
                 <div className={classes['post-middle']}>
                     <div className={classes['post-description']}>
 
-                        <p>
+                        <Link to={`/thread/@${props.profileName}`}>
                             <img className={classes['profile-image']} src={`http://127.0.0.1:8000${props.profileImg}`} alt='profile-image' />
                             @{props.profileName}
-                        </p>
+                        </Link>
                         <p>{props.postBody}</p>
                     </div>
                     <div className={classes['post-attachment']}>
@@ -91,7 +101,7 @@ const Post = (props) => {
                 <div className={classes['post-right']}>
                     <p>{timeAgo(props.postDate)}</p>
                 </div>
-            </div>
+            </div >
             <br></br>
             <hr />
         </>
