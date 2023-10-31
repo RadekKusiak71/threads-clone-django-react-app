@@ -5,7 +5,12 @@ import Post from '../components/Post';
 import PostContext from '../context/PostContext';
 
 const HomePage = () => {
-    let { posts } = useContext(PostContext)
+    let { posts, fetchPosts } = useContext(PostContext)
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
     return (
         <Card>
             <PostForm />
@@ -26,7 +31,7 @@ const HomePage = () => {
                     />
                 ))
             ) : (
-                <p>No posts available</p>
+                <h1 style={{ 'color': 'white', 'marginTop': '20px', 'textAlign': 'center' }}>No posts available</h1>
             )}
         </Card>
     );

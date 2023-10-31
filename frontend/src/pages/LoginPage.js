@@ -8,7 +8,6 @@ import PostContext from '../context/PostContext'
 
 const LoginPage = () => {
     const { loginUser, error } = useContext(AuthContext)
-    const { fetchPosts } = useContext(PostContext)
 
 
     const [loginData, setLoginData] = useState({
@@ -39,7 +38,6 @@ const LoginPage = () => {
             'password': loginData.password,
         }
         loginUser(data)
-        fetchPosts()
     }
     return (
         <div className={classes['register-page']}>

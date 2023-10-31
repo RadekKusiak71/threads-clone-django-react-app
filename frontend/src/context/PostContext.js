@@ -6,7 +6,6 @@ export default PostContext
 
 export const PostProvider = ({ children }) => {
     const [posts, setPosts] = useState([]);
-    const [isPostsUpdated, setIsPostsUpdated] = useState(true);
     let tokens = JSON.parse(localStorage.getItem('authTokens'));
 
     const fetchPosts = async () => {
@@ -43,7 +42,6 @@ export const PostProvider = ({ children }) => {
             let data = await response.json()
             if (response.ok) {
                 console.log(data)
-                fetchPosts()
             } else {
                 console.log(data)
             }
@@ -67,7 +65,6 @@ export const PostProvider = ({ children }) => {
 
             if (response.ok) {
                 console.log(data)
-                fetchPosts()
             } else {
                 console.log(data)
             }
@@ -78,17 +75,13 @@ export const PostProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (isPostsUpdated) {
-            fetchPosts();
-            setIsPostsUpdated(false);
-        }
-    }, [posts]);
+        fetchPosts();
+    }, []);
 
     let likeData = {
         likePost: likePost,
         unlikePost: unlikePost,
         posts: posts,
-        setIsPostsUpdated: setIsPostsUpdated,
         fetchPosts: fetchPosts,
     }
 
