@@ -12,8 +12,8 @@ import Header from './components/Header';
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <PostProvider>
+      <PostProvider>
+        <AuthProvider>
           <Header />
           <Routes>
             <Route path='/login' element={<LoginPage />} />
@@ -23,8 +23,8 @@ function App() {
               <Route path='/thread/:username' element={<ThreadPage />} />
             </Route>
           </Routes>
-        </PostProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </PostProvider>
     </BrowserRouter>
   );
 }
