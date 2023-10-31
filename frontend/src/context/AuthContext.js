@@ -72,8 +72,7 @@ export const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ 'refresh': authTokens.refresh })
-            })
-            console.log(authTokens.refresh)
+            });
             let data = await response.json();
 
             if (response.ok) {
@@ -81,17 +80,24 @@ export const AuthProvider = ({ children }) => {
                 setUser(jwtDecode(data.access));
                 localStorage.setItem('authTokens', JSON.stringify(data));
             } else {
-                console.log(response)
-                logoutUser();
+                if (response.status === 401) {
+                    logoutUser();
+                    navigate('/login');
+                } else {
+                    setError('Token refresh failed');
+                }
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setError('Network error');
+            logoutUser();
+            navigate('/login');
         }
-    }
+    };
 
 
     useEffect(() => {
-        const refresher = 1000 * 60 * 14
+        const refresher = 1000 * 60 * 10
         let interval = setInterval(() => {
             if (authTokens) {
                 updateToken()
@@ -106,7 +112,7 @@ export const AuthProvider = ({ children }) => {
         registerUser: registerUser,
         loginUser: loginUser,
         error: error,
-        logoutUser:logoutUser
+        logoutUser: logoutUser
     }
 
     return (
