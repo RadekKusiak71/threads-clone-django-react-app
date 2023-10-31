@@ -26,6 +26,7 @@ const HomePage = () => {
                         commentsCount={post.comments_count}
                         likeCount={post.likes_count}
                         thread={post.thread}
+                        threads={false}
                         postDate={post.created_date}
                         likesArray={post.likes}
                     />
