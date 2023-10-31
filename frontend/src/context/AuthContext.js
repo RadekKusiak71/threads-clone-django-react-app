@@ -73,13 +73,15 @@ export const AuthProvider = ({ children }) => {
                 },
                 body: JSON.stringify({ 'refresh': authTokens.refresh })
             })
+            console.log(authTokens.refresh)
             let data = await response.json();
 
             if (response.ok) {
-                setAuthTokens({ ...authTokens, access: data.access });
+                setAuthTokens(data);
                 setUser(jwtDecode(data.access));
-                localStorage.setItem('authTokens', JSON.stringify({ ...authTokens, access: data.access }));
+                localStorage.setItem('authTokens', JSON.stringify(data));
             } else {
+                console.log(response)
                 logoutUser();
             }
         } catch (err) {
@@ -103,7 +105,8 @@ export const AuthProvider = ({ children }) => {
         user: user,
         registerUser: registerUser,
         loginUser: loginUser,
-        error: error
+        error: error,
+        logoutUser:logoutUser
     }
 
     return (

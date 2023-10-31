@@ -4,9 +4,12 @@ import Input from '../UI/Input'
 import Button from '../UI/Button'
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+import PostContext from '../context/PostContext'
 
 const LoginPage = () => {
     const { loginUser, error } = useContext(AuthContext)
+    const { fetchPosts } = useContext(PostContext)
+
 
     const [loginData, setLoginData] = useState({
         username: '',
@@ -36,6 +39,7 @@ const LoginPage = () => {
             'password': loginData.password,
         }
         loginUser(data)
+        fetchPosts()
     }
     return (
         <div className={classes['register-page']}>
