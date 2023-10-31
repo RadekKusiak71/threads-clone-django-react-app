@@ -1,0 +1,28 @@
+header{
+    width: 80%;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+.empty{
+    display: block;
+    width: 200px;
+}
+.menu-links{
+    width: 150px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.header-middle > a > img {
+    width: 70px;
+    transition: 0.3s ease-in-out;
+}
+.header-middle > a > img:hover{
+    width: 80px;
+}
