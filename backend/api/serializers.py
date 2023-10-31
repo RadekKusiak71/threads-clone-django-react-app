@@ -8,13 +8,19 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ThreadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Thread
+        fields = '__all__'
+
+
 class CustomPostSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(source='thread.user.username')
     profile_image = serializers.ImageField(source='thread.profile_image')
     likes_count = serializers.IntegerField(source='calculate_likes_count')
-    comments_count = serializers.IntegerField(source='calculate_comments_count')
-
+    comments_count = serializers.IntegerField(
+        source='calculate_comments_count')
 
     class Meta:
         model = Post
