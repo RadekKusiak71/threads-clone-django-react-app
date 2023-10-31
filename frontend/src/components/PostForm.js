@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import classes from './PostForm.module.css';
 import AuthContext from '../context/AuthContext';
 import cancelIcon from '../assets/icons/delete.png'
@@ -9,7 +8,7 @@ const PostForm = () => {
     const [file, setFile] = useState(null);
     const [body, setBody] = useState('');
     const { user } = useContext(AuthContext);
-    const { setIsPostsUpdated, fetchPosts } = useContext(PostContext)
+    const { fetchPosts } = useContext(PostContext)
 
     let tokens = JSON.parse(localStorage.getItem('authTokens'));
 
@@ -42,10 +41,8 @@ const PostForm = () => {
 
             let data = await response.json();
             if (response.ok) {
-                console.log('POST CREATED', response);
                 setFile(null);
                 setBody('');
-                setIsPostsUpdated(true);
                 fetchPosts();
             } else {
                 console.log(response);

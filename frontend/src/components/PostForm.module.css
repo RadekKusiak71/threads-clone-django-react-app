@@ -14,7 +14,7 @@ input[type="file"] {
 
 .post-text-input {
     all: unset;
-    width:  700px;
+    width: 700px;
     height: 120px;
     color: #414141;
     background-color: #1e1e1e;
@@ -24,8 +24,8 @@ input[type="file"] {
     word-break: break-all;
 }
 
-.post-file-upload{
-    width:  720px;
+.post-file-upload {
+    width: 720px;
     height: 60px;
     padding: 10px;
     color: #414141;
@@ -39,16 +39,18 @@ input[type="file"] {
     cursor: pointer;
     margin: auto;
 }
-.post-file-upload:hover{
+
+.post-file-upload:hover {
     background-color: #1e1e1e;
     color: #414141;
     border: 0px
 }
-.post-form-button{
+
+.post-form-button {
     all: unset;
     background-color: #b2b2b2;
     color: #ffffff;
-    width:  700px;
+    width: 700px;
     height: 30px;
     border-radius: 5px;
     text-align: center;
@@ -56,15 +58,18 @@ input[type="file"] {
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
-.post-form-button:hover{
+
+.post-form-button:hover {
     background-color: #414141;
 }
-.file{
+
+.file {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.post-file-cancel{
+
+.post-file-cancel {
     all: unset;
     width: fit-content;
     color: red;
