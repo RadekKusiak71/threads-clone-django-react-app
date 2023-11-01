@@ -6,9 +6,14 @@ import PostContext from '../context/PostContext';
 
 const HomePage = () => {
     let { posts, fetchPosts } = useContext(PostContext)
+    const tokens = JSON.parse(localStorage.getItem('authTokens'));
 
     useEffect(() => {
-        fetchPosts();
+        if (tokens && tokens.access) {
+            fetchPosts(tokens);
+        } else {
+            console.log("Tokens are missing or invalid");
+        }
     }, []);
 
     return (
@@ -26,7 +31,6 @@ const HomePage = () => {
                         commentsCount={post.comments_count}
                         likeCount={post.likes_count}
                         thread={post.thread}
-                        threads={false}
                         postDate={post.created_date}
                         likesArray={post.likes}
                     />

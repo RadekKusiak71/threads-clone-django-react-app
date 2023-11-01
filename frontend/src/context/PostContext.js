@@ -1,16 +1,44 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 const PostContext = createContext()
 
 export default PostContext
 
 export const PostProvider = ({ children }) => {
+    const [threadPosts, setThreadsPosts] = useState([])
     const [posts, setPosts] = useState([]);
     let tokens = JSON.parse(localStorage.getItem('authTokens'));
 
-    const fetchPosts = async () => {
+
+    const fetchPosts = async (tokens) => {
+        if (tokens && tokens.access) {
+            try {
+                let response = await fetch('http://127.0.0.1:8000/api/posts/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${tokens.access}`,
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                let data = await response.json();
+                if (response.ok) {
+                    setPosts(data);
+                    console.log(data);
+                } else {
+                    console.log(data);
+                }
+            } catch (err) {
+                console.log(JSON.stringify(err));
+            }
+        } else {
+            console.log("Tokens are missing or invalid");
+        }
+    };
+
+    const fetchThreadPosts = async (username) => {
         try {
-            let response = await fetch('http://127.0.0.1:8000/api/posts/', {
+            let response = await fetch(`http://127.0.0.1:8000/api/posts/list_by_username/${username.substring(1,)}/`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${tokens.access}`,
@@ -20,7 +48,7 @@ export const PostProvider = ({ children }) => {
 
             let data = await response.json();
             if (response.ok) {
-                setPosts(data);
+                setThreadsPosts(data);
             } else {
                 console.log(data);
             }
@@ -29,65 +57,17 @@ export const PostProvider = ({ children }) => {
         }
     };
 
-    const likePost = async (postId) => {
-        try {
-            let response = await fetch('http://127.0.0.1:8000/api/likes/like_post/', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${tokens.access}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 'post_id': postId })
-            });
-            let data = await response.json()
-            if (response.ok) {
-                console.log(data)
-            } else {
-                console.log(data)
-            }
-        } catch (err) {
-            console.log(err)
-        }
 
-    }
-
-    const unlikePost = async (postId) => {
-        try {
-            let response = await fetch('http://127.0.0.1:8000/api/likes/unlike_post/', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${tokens.access}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 'post_id': postId })
-            });
-            let data = await response.json()
-
-            if (response.ok) {
-                console.log(data)
-            } else {
-                console.log(data)
-            }
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
-    let likeData = {
-        likePost: likePost,
-        unlikePost: unlikePost,
+    let postData = {
         posts: posts,
+        threadPosts: threadPosts,
         fetchPosts: fetchPosts,
+        fetchThreadPosts: fetchThreadPosts,
     }
 
 
     return (
-        <PostContext.Provider value={likeData}>
+        <PostContext.Provider value={postData}>
             {children}
         </PostContext.Provider>
     )

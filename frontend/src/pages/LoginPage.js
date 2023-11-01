@@ -4,7 +4,6 @@ import Input from '../UI/Input'
 import Button from '../UI/Button'
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
-import PostContext from '../context/PostContext'
 
 const LoginPage = () => {
     const { loginUser, error } = useContext(AuthContext)

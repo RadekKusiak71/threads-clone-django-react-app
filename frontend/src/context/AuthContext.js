@@ -28,12 +28,12 @@ export const AuthProvider = ({ children }) => {
             } else {
                 let errorData = await response.json();
                 setError(errorData);
-                console.log(response)
             }
         } catch (err) {
             console.log(err);
         }
     };
+
     const loginUser = async (formData) => {
         try {
             let response = await fetch('http://127.0.0.1:8000/authentication/token/', {
