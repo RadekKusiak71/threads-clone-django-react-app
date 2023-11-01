@@ -7,16 +7,15 @@ export default PostContext
 export const PostProvider = ({ children }) => {
     const [threadPosts, setThreadsPosts] = useState([])
     const [posts, setPosts] = useState([]);
-    let tokens = JSON.parse(localStorage.getItem('authTokens'));
 
 
     const fetchPosts = async (tokens) => {
-        if (tokens && tokens.access) {
+        if (JSON.parse(localStorage.getItem('authTokens')) && JSON.parse(localStorage.getItem('authTokens')).access) {
             try {
                 let response = await fetch('http://127.0.0.1:8000/api/posts/', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${tokens.access}`,
+                        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('authTokens')).access}`,
                         'Content-Type': 'application/json'
                     },
                 });
@@ -27,6 +26,9 @@ export const PostProvider = ({ children }) => {
                     console.log(data);
                 } else {
                     console.log(data);
+                    if (data['code'] === 'token_not_valid') {
+                        localStorage.removeItem('authTokens')
+                    }
                 }
             } catch (err) {
                 console.log(JSON.stringify(err));
@@ -41,7 +43,7 @@ export const PostProvider = ({ children }) => {
             let response = await fetch(`http://127.0.0.1:8000/api/posts/list_by_username/${username.substring(1,)}/`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${tokens.access}`,
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('authTokens')).access}`,
                     'Content-Type': 'application/json'
                 },
             });
@@ -51,6 +53,9 @@ export const PostProvider = ({ children }) => {
                 setThreadsPosts(data);
             } else {
                 console.log(data);
+                if (data['code'] === 'token_not_valid') {
+                    localStorage.removeItem('authTokens')
+                }
             }
         } catch (err) {
             console.log(JSON.stringify(err));

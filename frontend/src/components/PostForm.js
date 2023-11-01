@@ -10,8 +10,6 @@ const PostForm = () => {
     const { user } = useContext(AuthContext);
     const { fetchPosts } = useContext(PostContext)
 
-    let tokens = JSON.parse(localStorage.getItem('authTokens'));
-
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
@@ -34,7 +32,7 @@ const PostForm = () => {
             let response = await fetch('http://127.0.0.1:8000/api/posts/', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${tokens.access}`
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('authTokens')).access}`
                 },
                 body: formData
             });
@@ -43,7 +41,7 @@ const PostForm = () => {
             if (response.ok) {
                 setFile(null);
                 setBody('');
-                fetchPosts();
+                fetchPosts()
             } else {
                 console.log(response);
                 console.log(data);
