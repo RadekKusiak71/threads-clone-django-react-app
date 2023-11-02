@@ -1,0 +1,33 @@
+.post-form-button {
+    all: unset;
+    background-color: #b2b2b2;
+    color: #ffffff;
+    width: 700px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.post-form-button:hover {
+    background-color: #414141;
+}
+
+form {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.description-form>input {
+    width: 680px;
+    height: fit-content;
+    word-wrap: break-word;
+}

@@ -8,12 +8,12 @@ import PrivateRoutes from './utils/PrivateRoutes';
 import { PostProvider } from './context/PostContext';
 import ThreadPage from './pages/ThreadPage';
 import Header from './components/Header';
-
+import PostPage from './pages/PostPage'
 function App() {
   return (
     <BrowserRouter>
-      <PostProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <PostProvider>
           <Header />
           <Routes>
             <Route path='/login' element={<LoginPage />} />
@@ -21,10 +21,11 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path='/' element={<HomePage />} />
               <Route path='/thread/:username' element={<ThreadPage />} />
+              <Route path='/post/:postId' element={<PostPage />} />
             </Route>
           </Routes>
-        </AuthProvider>
-      </PostProvider>
+        </PostProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

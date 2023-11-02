@@ -74,7 +74,6 @@ const Post = (props) => {
             let data = await response.json()
 
             if (response.ok) {
-                console.log(data)
                 fetchThisPost(postId)
             } else {
                 console.log(data)
@@ -99,6 +98,7 @@ const Post = (props) => {
 
     return (
         <>
+
             <div className={classes['post-container']}>
                 <div className={classes['post-middle']}>
                     <div className={classes['post-description']}>
@@ -107,13 +107,17 @@ const Post = (props) => {
                             <img className={classes['profile-image']} src={`http://127.0.0.1:8000${props.profileImg}`} alt='Profile' />
                             @{props.profileName}
                         </Link>
-                        <p>{props.postBody}</p>
+                        <Link to={`/post/${props.postID}`}>
+                            <p>{props.postBody}</p>
+                        </Link>
                     </div>
-                    <div className={classes['post-attachment']}>
-                        {props.file && (
-                            <img src={`http://127.0.0.1:8000${props.file}`} alt='attachment' />
-                        )}
-                    </div>
+                    <Link to={`/post/${props.postID}`}>
+                        <div className={classes['post-attachment']}>
+                            {props.file && (
+                                <img src={`http://127.0.0.1:8000${props.file}`} alt='attachment' />
+                            )}
+                        </div>
+                    </Link >
                     <div className={classes['post-actions']}>
                         <img
                             src={isLiked ? heartRed : heart}
@@ -121,16 +125,18 @@ const Post = (props) => {
                             alt="heart-icon"
                             onClick={() => handleLike(props.postID)}
                         />
-                        <img src={chat} className={classes['action']} alt='chat icon' />
+                        <Link to={`/post/${props.postID}`}><img src={chat} className={classes['action']} alt='chat icon' /></Link>
                     </div>
                     <div className={classes['post-reactions']}>
-                        <p>{props.commentsCount} answers</p>
-                        <p>{likeCount} likes</p>
+                        <p><Link to={`/post/${props.postID}`}>{props.commentsCount} answers</Link></p>
+                        <p>   <Link to={`/post/${props.postID}`}>{likeCount} likes</Link></p>
                     </div>
                 </div>
-                <div className={classes['post-right']}>
-                    <p>{timeAgo(props.postDate)}</p>
-                </div>
+                <Link to={`/post/${props.postID}`}>
+                    <div className={classes['post-right']}>
+                        <p>{timeAgo(props.postDate)}</p>
+                    </div>
+                </Link>
             </div >
             <br></br>
             <hr />

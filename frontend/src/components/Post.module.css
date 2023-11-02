@@ -79,7 +79,7 @@
 }
 
 .post-attachment>img {
-    max-width: 400px;
+    max-width: 350px;
     max-height: 500px;
     min-width: 200px;
     min-height: 300px;
@@ -100,7 +100,7 @@
 
 .post-right {
     height: auto;
-    width: 300px;
+    width: 150px;
     display: flex;
     justify-content: flex-end;
     padding: 15px;

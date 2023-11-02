@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
+import AuthContext from './AuthContext'
 
 const PostContext = createContext()
 
@@ -7,6 +8,7 @@ export default PostContext
 export const PostProvider = ({ children }) => {
     const [threadPosts, setThreadsPosts] = useState([])
     const [posts, setPosts] = useState([]);
+    const { logoutUser } = useContext(AuthContext)
 
 
     const fetchPosts = async (tokens) => {
@@ -26,9 +28,7 @@ export const PostProvider = ({ children }) => {
                     console.log(data);
                 } else {
                     console.log(data);
-                    if (data['code'] === 'token_not_valid') {
-                        localStorage.removeItem('authTokens')
-                    }
+                    logoutUser()
                 }
             } catch (err) {
                 console.log(JSON.stringify(err));
@@ -53,9 +53,7 @@ export const PostProvider = ({ children }) => {
                 setThreadsPosts(data);
             } else {
                 console.log(data);
-                if (data['code'] === 'token_not_valid') {
-                    localStorage.removeItem('authTokens')
-                }
+                logoutUser()
             }
         } catch (err) {
             console.log(JSON.stringify(err));
