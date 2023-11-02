@@ -7,6 +7,7 @@ from django.core.validators import FileExtensionValidator
 def user_directory_path(instance, filename):
     return os.path.join('media', 'users', instance.user.username, filename)
 
+
 def user_directory_path_post(instance, filename):
     return os.path.join('media', 'users', instance.thread.user.username, filename)
 
@@ -44,6 +45,9 @@ class Comment(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(
         User, related_name="liked_comments", through='CommentLike')
+
+    def calculate_likes_count(self):
+        return self.likes.count()
 
 
 class PostLike(models.Model):

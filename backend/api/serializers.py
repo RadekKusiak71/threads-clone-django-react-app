@@ -14,6 +14,14 @@ class ThreadSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    likes_count = serializers.IntegerField(source='calculate_likes_count')
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
 class CustomPostSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(source='thread.user.username')

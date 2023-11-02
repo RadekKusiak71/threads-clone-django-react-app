@@ -1,18 +1,18 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from .views import PostViewSet, PostLikesViewSet, ThreadsViewSet
+from .views import PostViewSet, PostLikesViewSet, ThreadsViewSet, CommentsViewSet
 
-post_router = DefaultRouter()
-post_router.register(r'posts', PostViewSet, basename='post')
+router = DefaultRouter()
 
-likes_router = DefaultRouter()
-likes_router.register(r'likes', PostLikesViewSet, basename='like')
-
-threads_router = DefaultRouter()
-threads_router.register(r'threads', ThreadsViewSet, basename='thread')
+router.register(r'posts', PostViewSet, basename='post')
+router.register(r'likes', PostLikesViewSet, basename='like')
+router.register(r'threads', ThreadsViewSet, basename='thread')
+router.register(r'comments', CommentsViewSet, basename='comment')
 
 urlpatterns = [
-    path('', include(post_router.urls)),
-    path('', include(likes_router.urls)),
-    path('', include(threads_router.urls)),
+    path('', include(router.urls)),
+]
+
+urlpatterns = [
+    path('', include(router.urls)),
 ]

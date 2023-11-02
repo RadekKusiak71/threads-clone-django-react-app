@@ -4,12 +4,32 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .models import Thread, Post, Comment, CommentLike, PostLike
-from .serializers import PostSerializer, CustomPostSerializer, ThreadSerializer
+from .serializers import PostSerializer, CustomPostSerializer, ThreadSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
-class ThreadsViewSet(viewsets.ViewSet):
+class CommentsViewSet(viewsets.ViewSet):
     # permission_classes = [IsAuthenticated]
+
+    def list(self, request, pk=None):
+        queryset = Comment.objects.all()
+        data = CommentSerializer(queryset, many=True)
+        return Response(data.data)
+
+    def retrive(self, request, pk=None):
+        queryset = Comment.objects.get(id=pk)
+        data = CommentSerializer(queryset, many=False)
+        return Response(data.data)
+
+    @action(detail=False, methods=['get'], url_path='comments_for_posts/(?P<post_id>[^/.]+)')
+    def comments_for_posts(self, request, post_id=None):
+        queryset = Comment.objects.filter(post_id=post_id)
+        data = CommentSerializer(queryset, many=True)
+        return Response(data.data)
+
+
+class ThreadsViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
 
     def list(self, request):
         queryset = Thread.objects.all()
