@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classes from './ThreadProfile.module.css';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import profileImg from '../assets/icons/profile.png'
 import ProfileSettings from './ProfileSettings';
@@ -79,11 +79,16 @@ const ThreadProfile = () => {
             {profileData && showBackdrop && (
                 <div className={classes['backdrop']} onClick={closeBackdrop}>
                     <div className={classes['backdrop-content']}>
-                        <img
-                            src={`http://127.0.0.1:8000/${profileData.profile_image}`}
-                            alt="Profile"
-                            className={classes['enlarged-image']}
-                        />
+                        {profileData.profile_image ? (
+                            <>
+                                <img src={`http://127.0.0.1:8000/${profileData.profile_image}`} alt="Profile" className={classes['enlarged-image']} />
+                            </>
+                        ) : (
+                            <>
+                                <img src={profileImg} alt="Profile" className={classes['enlarged-image']} />
+
+                            </>
+                        )}
                         <button onClick={closeBackdrop} className={classes['close-button']}>
                             Close
                         </button>

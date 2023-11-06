@@ -6,6 +6,7 @@ import chat from '../assets/icons/chat.svg'
 import AuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import timeAgo from '../utils/TimeAgo'
+import profileIMG from '../assets/icons/profile.png'
 
 const Post = (props) => {
     const [likeCount, setLikeCount] = useState(props.likeCount);
@@ -104,7 +105,11 @@ const Post = (props) => {
                     <div className={classes['post-description']}>
 
                         <Link to={`/thread/@${props.profileName}`}>
-                            <img className={classes['profile-image']} src={`http://127.0.0.1:8000${props.profileImg}`} alt='Profile' />
+                            {props.profileImg ? (
+                                <img className={classes['profile-image']} src={`http://127.0.0.1:8000${props.profileImg}`} alt='Profile' />
+                            ) : (
+                                <img className={classes['profile-image']} src={profileIMG} alt='Profile' />
+                            )}
                             @{props.profileName}
                         </Link>
                         <Link to={`/post/${props.postID}`}>
