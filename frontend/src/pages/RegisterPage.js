@@ -89,7 +89,7 @@ const RegisterPage = () => {
                 />
                 <Button type='submit' areInputsFilled={areInputsFilled}>Submit</Button>
                 <p className={classes['form-account']}>If you already have account.<Link to='/login'> Click here.</Link></p>
-                {error && <p className={classes['register-error']}>Email - {error.email}</p>}
+                {error && <p className={classes['register-error']}>{error.email}</p>}
                 {error && <p className={classes['register-error']}>{error.username}</p>}
                 {error && <p className={classes['register-error']}>{error.password}</p>}
             </form>
