@@ -40,6 +40,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     body = models.TextField(max_length=280)
     created_date = models.DateTimeField(auto_now_add=True)
